@@ -116,7 +116,7 @@ int choisir_operations(int tab[][10],int nbnoeuds)
        }
        return(newnbnoeuds);
     }
-int gerer_noeuds(int tab[][10],int nbnoeuds)
+/*int gerer_noeuds(int tab[][10],int nbnoeuds)
     {
     int i,j,a,b=nbnoeuds;
     int choix=10,newchoix;
@@ -152,17 +152,33 @@ int gerer_noeuds(int tab[][10],int nbnoeuds)
        }
     return (b);
     }
-
+*/
 void afficher_matrice(int tab[][10],int nbnoeuds)
     {
-    int i,j;
-    printf(" Affichage de matrice = \n");
+    int i,j,k;
+    printf(" \n<=Affichage de matrice=> \n");
+    for(k = 0; k <= nbnoeuds; k++)
+        printf("----");
+    printf("\n|\\\\|");
+    for(i=1; i <= nbnoeuds; i++)
+        printf("|%2d|",i);
+    printf("\n");
+    for(i=0; i <= nbnoeuds; i++)
+        printf("|--|");
     for(i=1; i <= nbnoeuds; i++)
         {
+    printf("\n");
+        printf("|%2d|",i);
         for(j = 1; j <= nbnoeuds; j++)
-            printf("%4d",tab[i][j]);
+            printf("|%2d|",tab[i][j]);
         printf("\n");
+        for(k = 0; k <= nbnoeuds; k++)
+            printf("|--|");
         }
+    printf("\n");
+    for(i = 0; i <= nbnoeuds; i++)
+        printf("----");
+    
     }
     
 
