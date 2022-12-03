@@ -3,6 +3,7 @@
 void initier_dimensions_matrice(int nbnoeuds, int nbaretes);
 void remplir_matrice(int tab[][10],int nbnoeuds, int nbaretes);
 void choisir_operations();
+int gerer_noeuds(int tab[][10],int nbnoeuds);
 void afficher_matrice(int tab[][10],int nbnoeuds);
 void main()
 {
@@ -17,6 +18,7 @@ void main()
   remplir_matrice(matrice,nbNoeuds,nbAretes);
   afficher_matrice(matrice, nbNoeuds);
   choisir_operations(matrice);
+  nbNoeuds=gerer_noeuds(matrice,nbNoeuds);
   afficher_matrice(matrice, nbNoeuds);
 }
 
@@ -91,40 +93,43 @@ void choisir_operations(int tab[][10],int nbnoeuds)
                 scanf("%d", &b);        
                 tab[a][b]=0;        
         }        
-
-/*if(choix==1)
-            {
-            printf("\n---->Ajout Arête<----"); 
-            printf("\n Entrez le noeud source: ");
-            scanf("%d", &a);
-            printf("Entrez le noeud destinataire: ");
-            scanf("%d", &b);        
-            printf("Entrez le piods de l'arete: ");
-            scanf("%d", &tab[a][b]);        
-            }
-        else
-            if(choix==2)
-                {
-                printf("\n---->Modification Arête<----"); 
-                printf("\n Entrez le noeud source: ");
-                scanf("%d", &a);
-                printf("Entrez le noeud destinataire: ");
-                scanf("%d", &b);        
-                printf("Entrez le piods de l'arete: ");
-                scanf("%d", &tab[a][b]);        
-                }
-            else
-                if(choix==3)
-                {
-                printf("\n---->Suppression Arête<----"); 
-                printf("\n Entrez le noeud source: ");
-                scanf("%d", &a);
-                printf("Entrez le noeud destinataire: ");
-                scanf("%d", &b);        
-                tab[a][b]=0;        
-                }
-*/
        }
+    }
+int gerer_noeuds(int tab[][10],int nbnoeuds)
+    {
+    int i,j,a,b=nbnoeuds;
+    int choix=10,newchoix;
+    while(choix!=0)
+        {     
+        printf("\nchoisir l'option que vous desirez"); 
+        printf("\n0- Sortir et afficher la matrice"); 
+        printf("\n4- Ajouter noeuds"); 
+        printf("\n5- Supprimer noeuds"); 
+        printf("\nEntrez votre choix :="); 
+        scanf("%d", &newchoix);
+        printf("\nvotre choix est %d",newchoix);
+        choix=newchoix; 
+        //printf("\nchoix est %d",choix);
+        switch(choix){
+        case 4:        
+            printf("\n---->Ajout Noeuds<----"); 
+            printf("\n Entrez le nombre des noeuds à ajouter: ");
+            scanf("%d", &a);
+            b+=a;
+            //nbnoeuds+=a;
+            break;  
+        case 5:        
+                printf("\n---->Suppression Noeuds<----"); 
+                printf("\n Entrez le noeud à supprimer: ");
+                scanf("%d", &a);
+                for(i=1;i<=nbnoeuds;i++)
+                    {
+                        tab[i][a]=0;
+                        tab[a][i]=0;
+                    }    
+        }        
+       }
+    return (b);
     }
 
 void afficher_matrice(int tab[][10],int nbnoeuds)
