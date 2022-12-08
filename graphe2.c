@@ -4,6 +4,8 @@ void initier_dimensions_matrice(int nbnoeuds, int nbaretes);
 void remplir_matrice(int tab[][10],int nbnoeuds, int nbaretes);
 int choisir_operations();
 int gerer_noeuds(int tab[][10],int nbnoeuds);
+int calculer_degre(int tab[][10],int nbnoeuds);
+int calculer_degre_noeuds(int tab[][10],int nbnoeuds, int noeud);
 void afficher_matrice(int tab[][10],int nbnoeuds);
 void main()
 {
@@ -54,24 +56,27 @@ void remplir_matrice(int tab[][10],int nbnoeuds, int nbaretes)
 int choisir_operations(int tab[][10],int nbnoeuds)
     {
     int i,j,a,b,nb,n;
-    int choix=10,newchoix,newnbnoeuds=nbnoeuds;
-    char choixx,newchoixx;
-    while(choixx!='0')
+    int newchoix,newnbnoeuds=nbnoeuds;
+    int choixx=10,newchoixx;
+    printf("je suis dans choisir_operations");
+    while(choixx!=0)
         {     
         printf("\nchoisir l'option que vous desirez"); 
         printf("\n0- Sortir et afficher la matrice"); 
-        printf("\na- Ajouter arete"); 
-        printf("\nb- Modifier arete"); 
-        printf("\nc- Supprimer arete"); 
-        printf("\nd- Ajouter noeuds"); 
-        printf("\ne- Supprimer noeuds"); 
+        printf("\n100- Ajouter arete"); 
+        printf("\n101- Modifier arete"); 
+        printf("\n102- Supprimer arete"); 
+        printf("\n103- Ajouter noeuds"); 
+        printf("\n104- Supprimer noeuds"); 
+        printf("\n105- Afficher degre du graphe"); 
+        printf("\n106- Afficher degre d'un noeud"); 
         printf("\nEntrez votre choix :="); 
-        scanf("%c", &newchoixx);
+        scanf("%d", &newchoixx);
         printf("\nvotre choix est %d",newchoixx);
         choixx=newchoixx; 
         //printf("\nchoix est %d",choix);
         switch(choixx){
-        case 'a':        
+        case 100:        
             printf("\n---->Ajout Arête<----"); 
             printf("\n Entrez le noeud source: ");
             scanf("%d", &a);
@@ -80,7 +85,7 @@ int choisir_operations(int tab[][10],int nbnoeuds)
             printf("Entrez le poids de l'arete: ");
             scanf("%d", &tab[a][b]);
             break;  
-        case 'b':        
+        case 101:        
                 printf("\n---->Modification Arête<----"); 
                 printf("\n Entrez le noeud source: ");
                 scanf("%d", &a);
@@ -89,21 +94,22 @@ int choisir_operations(int tab[][10],int nbnoeuds)
                 printf("Entrez le poids de l'arete: ");
                 scanf("%d", &tab[a][b]);
                 break;        
-        case 'c':        
+        case 102:        
                 printf("\n---->Suppression Arête<----"); 
                 printf("\n Entrez le noeud source: ");
                 scanf("%d", &a);
                 printf("Entrez le noeud destinataire: ");
                 scanf("%d", &b);        
                 tab[a][b]=0;        
-        case 'd':        
+                break;        
+        case 103:        
             printf("\n---->Ajout Noeuds<----"); 
             printf("\n Entrez le nombre des noeuds à ajouter: ");
             scanf("%d", &nb);
             newnbnoeuds+=nb;
             //nbnoeuds+=a;
             break;  
-        case 'e':        
+        case 104:        
                 printf("\n---->Suppression Noeuds<----"); 
                 printf("\n Entrez le noeud à supprimer: ");
                 scanf("%d", &n);
@@ -112,6 +118,17 @@ int choisir_operations(int tab[][10],int nbnoeuds)
                         tab[i][n]=0;
                         tab[n][i]=0;
                     }    
+                break;        
+        case 105:        
+                printf("\n---->Degré Graphe<----"); 
+                printf("\n le degré est: %d",calculer_degre(tab,nbnoeuds));
+                break;        
+        case 106:        
+                printf("\n---->Degré d'un noeud<----"); 
+                printf("\n Entrez le noeud: ");
+                scanf("%d", &n);
+                printf("\n le degré de %d est: %d",n,calculer_degre_noeuds(tab,nbnoeuds,n));
+                break;        
         }        
        }
        return(newnbnoeuds);
@@ -180,5 +197,32 @@ void afficher_matrice(int tab[][10],int nbnoeuds)
         printf("----");
     
     }
+int calculer_degre(int tab[][10],int nbnoeuds)
+    {
+    int i,j,degre=0;
+    printf(" \n<=Affichage de degre=> \n");
+    for(i=1; i <= nbnoeuds; i++)
+        {
+         for(j = 1; j <= nbnoeuds; j++)
+            {
+            if(tab[i][j]!=0)
+                degre++;
+            if(tab[j][i]!=0)
+                degre++;
+            }
+        }
+    return(degre);                 
+    }
     
-
+int calculer_degre_noeuds(int tab[][10],int nbnoeuds, int noeud)
+    {
+    int i,j,degre=0;
+    for(i=1; i <= nbnoeuds; i++)
+        {
+            if(tab[i][noeud]!=0)
+                degre++;
+            if(tab[noeud][i]!=0)
+                degre++;
+        }
+    return(degre);                 
+    }
